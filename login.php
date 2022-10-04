@@ -25,7 +25,7 @@ if(isset($_POST['submit'])) {
 </head>
 <body>
     <h1>Zaloguj się</h1>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+    <form action="" method="POST">
         <div class="item">
             <label for="username">Nazwa użytkownika:</label>
             <input type="text" name="username" autocomplete="off">

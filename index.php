@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1>Załóż konto</h1>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+    <form action="" method="POST">
         <div class="item">
             <label for="username">Nazwa użytkownika:</label>
             <input type="text" name="username" autocomplete="off">

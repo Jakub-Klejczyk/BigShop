@@ -3,27 +3,30 @@
 class UserValidation {
     private $data;
     private $users;
-    private $val = false;
+    private $val;
     private $errors = [];
 
     public function __construct($post_data, $db) {
         $this->data = $post_data;
         $this->users = $db;
+        $this->val = false;
+        $this->dataCheck = false;
     }
 
     public function validateForm() {
         $this->validateUsername();
-        $this->validateEmail();
+        $this->validatePassword();
 
-        foreach($this->users as $user) {
-            if($user['username'] == $this->data['username'] && $user['pass'] == $this->data['pass']) {
-                $this->val = true;
-            }    
-        }
-        if(!empty($this->data['username']) && !empty($this->data['pass'])) {
-             if($this->val == false) {
-                 $this->addError('nouser', 'Nie ma takiego użytkownika!');  
-             }
+
+        if($this->validateUsername() && $this->validatePassword()) {
+            foreach($this->users as $user) {
+                if(in_array($this->data['username'], $user) && in_array($this->data['pass'], $user)) {
+                    $this->setVal();
+                    return;
+                } else {
+                    $this->addError('nouser', 'Nie ma takiego użytkownika!');  
+                }
+            }
         }
         return $this->errors;
     }
@@ -36,7 +39,7 @@ class UserValidation {
         }
     }
 
-    private function validateEmail() {
+    private function validatePassword() {
         if(empty($this->data['pass'])) {
             $this->addError('pass', 'Nie podano hasła!');
         } else {
@@ -46,6 +49,10 @@ class UserValidation {
 
     private function addError($key, $value) {
         $this->errors[$key] = $value;
+    }
+
+    private function setVal() {
+        $this->val = true;
     }
 
     public function getVal() {
