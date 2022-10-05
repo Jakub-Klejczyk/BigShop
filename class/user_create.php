@@ -50,7 +50,9 @@ class UserCreate {
                 'locality' => $this->local,
             ];
 
-            print_r($user);
+            $this->users[] = $user;
+
+            print_r($this->users);
 
            }
 

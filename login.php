@@ -1,10 +1,22 @@
 <?php
-$users = require('db.php');
+require('db.php');
 require('class/user_validation.php');
 
 
+
+
 if(isset($_POST['submit'])) {
-    $validation = new UserValidation($_POST, $users);
+    
+
+    $username = htmlspecialchars($_POST['username']);
+    $pass = htmlspecialchars($_POST['pass']);
+
+    $post_data = array(
+        'username' => $username,
+        'pass' => $pass
+    );
+
+    $validation = new UserValidation($post_data, $users);
     $errors = $validation->validateForm();
 
     if($validation->getVal() == true) {

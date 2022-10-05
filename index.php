@@ -1,17 +1,17 @@
 <?php
 
-$users = require('db.php');
+require('db.php');
 require('class/user_create.php');
 
 if(isset($_POST['submit'])) {
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
-    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
-    $pass2 = filter_input(INPUT_POST, 'pass2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $tel = filter_input(INPUT_POST, 'tel', FILTER_SANITIZE_SPECIAL_CHARS);
-    $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_SPECIAL_CHARS);
-    $zip = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_SPECIAL_CHARS);
-    $local = filter_input(INPUT_POST, 'local', FILTER_SANITIZE_SPECIAL_CHARS);
+    $username = htmlspecialchars($_POST['username']);
+    $pass = htmlspecialchars($_POST['pass']);
+    $pass2 = htmlspecialchars($_POST['pass2']);
+    $email = htmlspecialchars($_POST['email']);
+    $tel = htmlspecialchars($_POST['tel']);
+    $street = htmlspecialchars($_POST['street']);
+    $zip = htmlspecialchars($_POST['zip']);
+    $local = htmlspecialchars($_POST['local']);
 
     $registration = new UserCreate($username, $pass, $pass2, $email, $tel, $street, $zip, $local, $users);
     $errors = $registration->createUser();
