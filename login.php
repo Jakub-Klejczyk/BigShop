@@ -1,5 +1,5 @@
 <?php
-require('db.php');
+$users = require('db.php');
 require('class/user_validation.php');
 
 
